@@ -205,3 +205,14 @@ AUTHENTICATION_BACKENDS = [
     
 STRIPE_PUBLISHABLE = os.environ.get('stripe_publishable')
 STRIPE_SECRET = os.environ.get('pk_test_51Hb4gqD3tgsPphL0Fj87O7HnrNw6eviGVbquO4MPmsMpOwGFcqX7zwMoyBx05UmtqIgGhpvJrULryyKiHuYAoZCE00ep762e9y')
+
+BROKER_URL = 'redis://localhost:6379'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
