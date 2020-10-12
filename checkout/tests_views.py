@@ -7,7 +7,7 @@ from django.http import HttpResponsePermanentRedirect
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Subscription
 import stripe
-from dating_app import settings
+from src import settings
 
 class TestViews(TestCase):
 

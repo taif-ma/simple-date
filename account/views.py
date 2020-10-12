@@ -20,7 +20,7 @@ def account(request):
     Return active subscriptions from a Stripe customer as well as the customer
     and id
     """
-    
+    """
     def return_subs():
         customer_id = Subscription.objects.filter(user_id=request.user).first()
         if customer_id:
@@ -49,13 +49,13 @@ def account(request):
             customer_id = None
         
         return active_subscriptions, customer, customer_id
-    
+    """
     # If user has submitted change account details form
     if request.method == "POST" and 'account-change-submit' in request.POST:
         password_form = PasswordChangeForm(request.user)
         user_form = EditProfileForm(request.POST, instance=request.user, user=request.user)
         if user_form.is_valid():
-            active_subscriptions, customer, customer_id = return_subs()
+            #active_subscriptions, customer, customer_id = return_subs()
             user = User.objects.get(pk=request.user.id)
             user_form.save()
             user = User.objects.get(pk=request.user.id)
@@ -66,7 +66,7 @@ def account(request):
             # Ensure request.user does not change based on user_form
             user = User.objects.get(pk=request.user.id)
             request.user = user
-            active_subscriptions, customer, customer_id = return_subs()
+            #active_subscriptions, customer, customer_id = return_subs()
             
     # If user has submitted change password form
     elif request.method == "POST" and 'password-change-submit' in request.POST:
@@ -75,20 +75,21 @@ def account(request):
             if password_form.is_valid():
                 password_form.save()
                 update_session_auth_hash(request, password_form.user)
-                active_subscriptions, customer, customer_id = return_subs()
+                #active_subscriptions, customer, customer_id = return_subs()
             else:
-               active_subscriptions, customer, customer_id = return_subs() 
+                pass
+               #active_subscriptions, customer, customer_id = return_subs() 
     else:
         user_form = EditProfileForm(instance=request.user, user=request.user)
         password_form = PasswordChangeForm(request.user)
-        active_subscriptions, customer, customer_id = return_subs()
+        #active_subscriptions, customer, customer_id = return_subs()
      
         
     context = {
         'password_form': password_form,
         'user_form': user_form,
-        'customer': customer,
-        'active_subscriptions': active_subscriptions
+        #'customer': customer,
+        #'active_subscriptions': active_subscriptions
     }
     
     return render(request, 'account.html', context)

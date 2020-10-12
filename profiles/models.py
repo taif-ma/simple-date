@@ -138,12 +138,24 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, default='1990-01-01', blank=True)
     is_premium = models.BooleanField(default=False)
     is_verified = models.CharField(choices=APPROVAL, default="TO BE APPROVED", blank=False, max_length=14)
-    
+    is_online = models.BooleanField(default=False)
+    status = models.BooleanField(default=False)
     objects = LocationManager()
     
     # Assistance from https://stackoverflow.com/questions/5056327/define-and-insert-age-in-django-template
     def age(self):
         return int((datetime.date.today() - self.birth_date).days / 365.25  )
+
+
+    # ONLINE USERS 
+    def update_online(self):
+        from online.models import SocketConnection
+        cnt = SocketConnection.objects.filter(user = self).count()
+        if cnt == 0:
+            self.is_online = False
+        else:
+            self.is_online = True
+        self.save()
 
 # Assistance from https://stackoverflow.com/questions/2673647/enforce-unique-upload-file-names-using-django
 def image_filename(instance, filename):

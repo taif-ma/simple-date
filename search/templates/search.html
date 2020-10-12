@@ -106,6 +106,7 @@
 <!--Filtered profiles-->
 <div class="container-fluid">
     <div class="row">
+        {{request.user.profile.is_online}}
         {% if not search_page %}
         <p class="centered-text">No profiles match your search. Try adjusting your filters</p>
         {% endif %} {% for profile in search_page %}
@@ -121,7 +122,9 @@
                         <p class="col-9 card-username">{{profile.user.username}}</p>
                         <p class="col-3 card-age">{{profile.age}}</p>
                     </div>
-                    <p class="card-distance">{%if profile.distance > 150 %}150KM+{%else%}{{profile.distance|floatformat:"0"}}KM{%endif%} Away</p>
+                    <p class="card-distance">{%if profile.distance > 150 %}150KM+{%else%}{{profile.distance|floatformat:"0"}}KM{%endif%} Away  {% if profile.is_online %}
+                        <i class="fa fa-circle" style="color:#43cc39"></i>
+                    {% endif %}</p>
                     <div class="row interaction-container">
                         <div class="interaction-wrapper">
                             <i class="hidden-icon col-6 far fa-comment-alt grid-message"></i>
