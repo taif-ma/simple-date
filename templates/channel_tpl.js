@@ -1,11 +1,10 @@
 
 $( document ).ready(() => {
-    console.log('ready!');
+    //console.log('ready!');
     let token = '{{ user.profile.get_token }}';
     // alert(token);
-    let socket  =  new WebSocket("ws://localhost:5555/online/");
-    $('#test-socket').on('click',() => {
-        console.log('asdfasdsafa');
+    let socket  =  new WebSocket("ws://localhost:8080/online/");
+    console.log('asdfasdsafa');
         let data = {
             action: 'login', 
             data: {
@@ -13,6 +12,11 @@ $( document ).ready(() => {
                 userAgent: window.navigator.userAgent
             }
         }
-        socket.send(JSON.stringify(data));
-    })
+    //console.log(data)
+    //socket.send(JSON.stringify(data));
+    socket.onopen = function () {
+        socket.send(JSON.stringify(data)); 
+        
+    };
+    
 });
