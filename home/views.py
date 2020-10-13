@@ -10,6 +10,10 @@ import datetime
 import stripe
 from checkout.models import Subscription
 
+def channel_js(request):
+
+    return render(request,'channel_tpl.js',content_type="application/x-javascript")
+
 # Home page after user logs in
 @login_required
 def index(request):

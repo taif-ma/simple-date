@@ -5,6 +5,7 @@ from asgiref.sync import async_to_sync
 from channels.auth import login
 import json
 import uuid
+import sys
 
 
 class OnlineConsumer(WebsocketConsumer):
@@ -33,6 +34,8 @@ class OnlineConsumer(WebsocketConsumer):
     def receive(self, text_data):
         message = json.loads(text_data)
         if message['action'] == 'login':
+            print(message)
+            #sys.exit()
             t = Token.objects.get(key=message['data']['token'])
             self.token = t.key
             self.sid = uuid.uuid1()

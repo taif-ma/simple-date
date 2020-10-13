@@ -10,8 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-
-import dj_database_url
 import os
 
 try: 
@@ -61,7 +59,6 @@ INSTALLED_APPS = [
     'checkout',
     'account',
     'search',
-    'storages',
     'friends',
     'online',
     'channels',
@@ -201,7 +198,7 @@ EMAIL_PORT = 587
 
 # Log in using email
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend', 'profiles.backend.EmailAuth']
+    'django.contrib.auth.backends.ModelBackend']
     
 STRIPE_PUBLISHABLE = os.environ.get('stripe_publishable')
 STRIPE_SECRET = os.environ.get('pk_test_51Hb4gqD3tgsPphL0Fj87O7HnrNw6eviGVbquO4MPmsMpOwGFcqX7zwMoyBx05UmtqIgGhpvJrULryyKiHuYAoZCE00ep762e9y')

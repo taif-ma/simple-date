@@ -34,8 +34,8 @@ verify.short_description = "Mark selected as verified"
 reject.short_description = "Mark selected as rejected"
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'bio', 'is_verified')
-    list_filter = ('is_verified', )
+    list_display = ('user', 'bio', 'is_verified', 'is_online')
+    list_filter = ('is_verified', 'is_online')
     readonly_fields = ('id',)
     actions = (verify, reject)
     list_per_page = 30

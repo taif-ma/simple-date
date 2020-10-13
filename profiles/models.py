@@ -14,6 +14,7 @@ import stripe
 from django.db.backends.signals import connection_created
 from django.dispatch import receiver
 import os
+from rest_framework.authtoken.models import Token
 
 
 """
@@ -141,10 +142,21 @@ class Profile(models.Model):
     is_online = models.BooleanField(default=False)
     status = models.BooleanField(default=False)
     objects = LocationManager()
+
+    last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     
+    def __str__(self):
+        return self.user.username
+
     # Assistance from https://stackoverflow.com/questions/5056327/define-and-insert-age-in-django-template
     def age(self):
         return int((datetime.date.today() - self.birth_date).days / 365.25  )
+
+    ## get or create tonen
+    @property
+    def get_token(self):
+        token, created = Token.objects.get_or_create(user=self.user) 
+        return token.key
 
 
     # ONLINE USERS 
